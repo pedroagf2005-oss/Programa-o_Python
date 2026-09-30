@@ -582,3 +582,108 @@ print()
 # Demonstrando o método upper(): cria uma cópia da string de origem, substitui todas as letras minúsculas
 #  com suas equivalentes maiúsculas e retorna a string como resultado.
 print("I know that I know nothing. Part 2.".upper())
+# Cifra de César.
+text = input("Enter your message: ")
+cipher = ''
+for char in text:
+    if not char.isalpha():
+        continue
+    char = char.upper()
+    code = ord(char) + 1
+    if code > ord('Z'):
+        code = ord('A')
+    cipher += chr(code)
+
+print(cipher)
+# Cifra de César - descriptografando uma mensagem.
+cipher = input('Enter your cryptogram: ')
+text = ''
+for char in cipher:
+    if not char.isalpha():
+        continue
+    char = char.upper()
+    code = ord(char) - 1
+    if code < ord('A'):
+        code = ord('Z')
+    text += chr(code)
+
+print(text)
+# Processador de números.
+
+line = input("Enter a line of numbers - separate them with spaces: ")
+strings = line.split()
+total = 0
+try:
+    for substr in strings:
+        total += float(substr)
+    print("The total is:", total)
+except:
+    print(substr, "is not a number.")
+# Validador IBAN.
+
+iban = input("Enter IBAN, please: ")
+iban = iban.replace(' ','')
+
+if not iban.isalnum():
+    print("You have entered invalid characters.")
+elif len(iban) < 15:
+    print("IBAN entered is too short.")
+elif len(iban) > 31:
+    print("IBAN entered is too long.")
+else:
+    iban = (iban[4:] + iban[0:4]).upper()
+    iban2 = ''
+    for ch in iban:
+        if ch.isdigit():
+            iban2 += ch
+        else:
+            iban2 += str(10 + ord(ch) - ord('A'))
+    iban = int(iban2)
+    if iban % 97 == 1:
+        print("IBAN entered is valid.")
+    else:
+        print("IBAN entered is invalid.")
+    import math
+
+x = float(input("Digite x: "))
+y = math.sqrt(x)
+
+print("A raiz quadrada de", x, "é igual a", y)
+#Exception
+try:
+    y = 1 / 0
+except ZeroDivisionError:
+    print("Ooopsss...")
+
+print("FIM.")
+#mudando a posição
+try:
+    y = 1 / 0
+except ArithmeticError:
+    print("Problema aritmético!")
+except ZeroDivisionError:
+    print("Divisão por zero!")
+ 
+print("FIM.")
+ #exception dentro da função
+def bad_fun(n):
+    try:
+        return 1 / n
+    except ArithmeticError:
+        print("Problema aritmético!")
+    return None
+
+bad_fun(0)
+
+print("FIM.")
+#por fora da função
+def bad_fun(n):
+    return 1 / n
+ 
+try:
+    bad_fun(0)
+except ArithmeticError:
+    print("O que aconteceu? Uma exceção foi gerada!")
+ 
+print("FIM.")
+ 
