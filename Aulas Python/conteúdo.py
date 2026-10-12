@@ -686,4 +686,519 @@ except ArithmeticError:
     print("O que aconteceu? Uma exceção foi gerada!")
  
 print("FIM.")
+class Stack:
+    def __init__(self):
+        self.__stack_list = []
+
+
+    def push(self, val):
+        self.__stack_list.append(val)
+
+
+    def pop(self):
+        val = self.__stack_list[-1]
+        del self.__stack_list[-1]
+        return val
+
+
+stack_object = Stack()
+
+stack_object.push(3)
+stack_object.push(2)
+stack_object.push(1)
+
+print(stack_object.pop())
+print(stack_object.pop())
+print(stack_object.pop())
+#POO variáveis de instância
+class ExampleClass:
+    def __init__(self, val = 1):
+        self.first = val
  
+    def set_second(self, val):
+        self.second = val
+ 
+ 
+example_object_1 = ExampleClass()
+example_object_2 = ExampleClass(2)
+ 
+example_object_2.set_second(3)
+ 
+example_object_3 = ExampleClass(4)
+example_object_3.third = 5
+ 
+print(example_object_1.__dict__)
+print(example_object_2.__dict__)
+print(example_object_3.__dict__)
+ # modificar uma variável de instância de qualquer objeto não causa nenhum impacto em todos os objetos restantes.
+class ExampleClass:
+    def __init__(self, val = 1):
+        self.__first = val
+
+    def set_second(self, val = 2):
+        self.__second = val
+
+
+example_object_1 = ExampleClass()
+example_object_2 = ExampleClass(2)
+
+example_object_2.set_second(3)
+
+example_object_3 = ExampleClass(4)
+example_object_3.__third = 5
+
+
+print(example_object_1.__dict__)
+print(example_object_2.__dict__)
+print(example_object_3.__dict__)
+#propriedade que existe em apenas uma cópia e é armazenada fora de qualquer objeto.
+class ExampleClass:
+    counter = 0
+    def __init__(self, val = 1):
+        self.__first = val
+        ExampleClass.counter += 1
+ 
+ 
+example_object_1 = ExampleClass()
+example_object_2 = ExampleClass(2)
+example_object_3 = ExampleClass(4)
+ 
+print(example_object_1.__dict__, example_object_1.counter)
+print(example_object_2.__dict__, example_object_2.counter)
+print(example_object_3.__dict__, example_object_3.counter)
+# pode não ser esperado que todos os objetos da mesma classe possuam os mesmos conjuntos de propriedades.
+class ExampleClass:
+    def __init__(self, val):
+        if val % 2 != 0:
+            self.a = 1
+        else:
+            self.b = 1
+
+
+example_object = ExampleClass(1)
+
+print(example_object.a)
+print(example_object.b)
+#Métodos
+class Classy:
+    def method(self):
+        print("method")
+
+
+obj = Classy()
+obj.method()
+#
+class Classy:
+    def method(self, par):
+        print("method:", par)
+ 
+ 
+obj = Classy()
+obj.method(1)
+obj.method(2)
+obj.method(3)
+#Self
+class Classy:
+    varia = 2
+    def method(self):
+        print(self.varia, self.var)
+ 
+ 
+obj = Classy()
+obj.var = 3
+obj.method()
+#
+class Classy:
+    def other(self):
+        print("other")
+ 
+    def method(self):
+        print("method")
+        self.other()
+ 
+ 
+obj = Classy()
+obj.method()
+#
+class Classy:
+    def __init__(self, value):
+        self.var = value
+
+
+obj_1 = Classy("object")
+
+print(obj_1.var)
+#
+class Classy:
+    def visible(self):
+        print("visible")
+ 
+    def __hidden(self):
+        print("hidden")
+ 
+ 
+obj = Classy()
+obj.visible()
+ 
+try:
+    obj.__hidden()
+except:
+    print("failed")
+ 
+obj._Classy__hidden()
+#
+class Classy:
+    varia = 1
+    def __init__(self):
+        self.var = 2
+
+    def method(self):
+        pass
+
+    def __hidden(self):
+        pass
+
+
+obj = Classy()
+#
+class SuperOne:
+    pass
+
+
+class SuperTwo:
+    pass
+
+
+class Sub(SuperOne, SuperTwo):
+    pass
+
+
+def printBases(cls):
+    print('( ', end='')
+#Investigando classes
+class MyClass:
+    pass
+
+
+obj = MyClass()
+obj.a = 1
+obj.b = 2
+obj.i = 3
+obj.ireal = 3.5
+obj.integer = 4
+obj.z = 5
+
+
+def incIntsI(obj):
+    for name in obj.__dict__.keys():
+        if name.startswith('i'):
+            val = getattr(obj, name)
+            if isinstance(val, int):
+                setattr(obj, name, val + 1)
+
+
+print(obj.__dict__)
+incIntsI(obj)
+print(obj.__dict__)
+#isinstance()
+class Vehicle:
+    pass
+
+
+class LandVehicle(Vehicle):
+    pass
+
+
+class TrackedVehicle(LandVehicle):
+    pass
+
+
+my_vehicle = Vehicle()
+my_land_vehicle = LandVehicle()
+my_tracked_vehicle = TrackedVehicle()
+
+for obj in [my_vehicle, my_land_vehicle, my_tracked_vehicle]:
+    for cls in [Vehicle, LandVehicle, TrackedVehicle]:
+        print(isinstance(obj, cls), end="\t")
+    print()
+#operador is 
+class SampleClass:
+    def __init__(self, val):
+        self.val = val
+
+
+object_1 = SampleClass(0)
+object_2 = SampleClass(2)
+object_3 = object_1
+object_3.val += 1
+
+print(object_1 is object_2)
+print(object_2 is object_3)
+print(object_3 is object_1)
+print(object_1.val, object_2.val, object_3.val)
+
+string_1 = "Mary had a little "
+string_2 = "Mary had a little lamb"
+string_1 += "lamb"
+
+print(string_1 == string_2, string_1 is string_2)
+#Criando uma hierarquia de classes
+class One:
+    def do_it(self):
+        print("do_it from One")
+
+    def doanything(self):
+        self.do_it()
+
+
+class Two(One):
+    def do_it(self):
+        print("do_it from Two")
+
+
+one = One()
+two = Two()
+
+one.doanything()
+two.doanything()
+#MRO, quando nem todas as heranças fazem sentido
+class Top:
+    def m_top(self):
+        print("top")
+
+
+class Middle(Top):
+    def m_middle(self):
+        print("middle")
+
+
+class Bottom(Middle):
+    def m_bottom(self):
+        print("bottom")
+
+
+object = Bottom()
+object.m_bottom()
+object.m_middle()
+object.m_top()
+#mais variáveis
+def reciprocal(n):
+    try:
+        n = 1 / n
+    except ZeroDivisionError:
+        print("Division failed")
+        return None
+    else:
+        print("Everything went fine")
+        return n
+
+
+print(reciprocal(2))
+print(reciprocal(0))
+#base exception
+def print_args(args):
+    lng = len(args)
+    if lng == 0:
+        print("")
+    elif lng == 1:
+        print(args[0])
+    else:
+        print(str(args))
+
+
+try:
+    raise Exception
+except Exception as e:
+    print(e, e.__str__(), sep=' : ' ,end=' : ')
+    print_args(e.args)
+
+try:
+    raise Exception("my exception")
+except Exception as e:
+    print(e, e.__str__(), sep=' : ', end=' : ')
+    print_args(e.args)
+
+try:
+    raise Exception("my", "exception")
+except Exception as e:
+    print(e, e.__str__(), sep=' : ', end=' : ')
+    print_args(e.args)
+    #criando a própria exceção
+class MyZeroDivisionError(ZeroDivisionError):	
+    pass
+
+
+def do_the_division(mine):
+    if mine:
+        raise MyZeroDivisionError("some worse news")
+    else:		
+        raise ZeroDivisionError("some bad news")
+
+
+for mode in [False, True]:
+    try:
+        do_the_division(mode)
+    except ZeroDivisionError:
+        print('Division by zero')
+
+for mode in [False, True]:
+    try:
+        do_the_division(mode)
+    except MyZeroDivisionError:
+        print('My division by zero')
+    except ZeroDivisionError:
+        print('Original division by zero')
+    #Geradores: um fragmento de código especializado para produzir uma série de valores e para controle o processo de iteração.
+    class Fib:
+     def __init__(self, nn):
+        print("__init__")
+        self.__n = nn
+        self.__i = 0
+        self.__p1 = self.__p2 = 1
+
+    def __iter__(self):
+        print("__iter__")
+        return self
+
+    def __next__(self):
+        print("__next__")		
+        self.__i += 1
+        if self.__i > self.__n:
+            raise StopIteration
+        if self.__i in [1, 2]:
+            return 1
+        ret = self.__p1 + self.__p2
+        self.__p1, self.__p2 = self.__p2, ret
+        return ret
+
+
+for i in Fib(10):
+    print(i)
+#objeto interador: é parte de uma classe mais complexa.
+class Fib:
+    def __init__(self, nn):
+        self.__n = nn
+        self.__i = 0
+        self.__p1 = self.__p2 = 1
+
+    def __iter__(self):
+        print("Fib iter")
+        return self
+
+    def __next__(self):
+        self.__i += 1
+        if self.__i > self.__n:
+            raise StopIteration
+        if self.__i in [1, 2]:
+            return 1
+        ret = self.__p1 + self.__p2
+        self.__p1, self.__p2 = self.__p2, ret
+        return ret
+
+
+class Class:
+    def __init__(self, n):
+        self.__iter = Fib(n)
+
+    def __iter__(self):
+        print("Class iter")
+        return self.__iter
+
+
+object = Class(8)
+
+for i in object:
+    print(i)
+#protocolo yield: é uma função que produz uma série de valores, mas não é um objeto iterador. A função yield é usada para criar geradores.
+def fun(n):
+    for i in range(n):
+        return i
+ #construindo um gerador
+def fun(n):
+    for i in range(n):
+        yield i
+
+
+for v in fun(5):
+    print(v)
+#agora com potência de 2
+def powers_of_2(n):
+    power = 1
+    for i in range(n):
+        yield power
+        power *= 2
+
+
+for v in powers_of_2(8):
+    print(v)
+#lista de compreensões:
+#Os geradores também podem ser usados em listas de compreensões, exatamente como aqui:
+
+def powers_of_2(n):
+    power = 1
+    for i in range(n):
+        yield power
+        power *= 2
+ 
+ 
+t = [x for x in powers_of_2(5)]
+print(t)
+#A função list()
+#A função list() pode transformar uma série de chamadas de gerador subsequentes em uma lista real:
+
+def powers_of_2(n):
+    power = 1
+    for i in range(n):
+        yield power
+        power *= 2
+ 
+ 
+t = list(powers_of_2(3))
+print(t)
+#O operador in
+#Além disso, o contexto criado pelo operador in também permite que você use um gerador.
+#O exemplo mostra como fazer isso:
+
+def powers_of_2(n):
+    power = 1
+    for i in range(n):
+        yield power
+        power *= 2
+ 
+ 
+for i in range(20):
+    if i in powers_of_2(4):
+        print(i)
+#gerador de números de fibonacci
+def fibonacci(n):
+    p = pp = 1
+    for i in range(n):
+        if i in [0, 1]:
+            yield 1
+        else:
+            n = p + pp
+            pp, p = p, n
+            yield n
+
+fibs = list(fibonacci(10))
+print(fibs)
+#função lambda: é uma função anônima, ou seja, uma função sem nome. Ela é usada para criar funções simples e rápidas.
+#A função lambda é usada para criar funções que são usadas apenas uma vez e não precisam de um nome.
+two = lambda: 2
+sqr = lambda x: x * x
+pwr = lambda x, y: x ** y
+ 
+for a in range(-2, 3):
+    print(sqr(a), end=" ")
+    print(pwr(a, two()))
+ #uso da lambda na prática:
+def print_function(args, fun):
+    for x in args:
+        print('f(', x,')=', fun(x), sep='')
+
+
+def poly(x):
+    return 2 * x**2 - 4 * x + 2
+
+
+print_function([x for x in range(-2, 3)], poly)
