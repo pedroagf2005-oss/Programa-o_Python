@@ -1202,3 +1202,148 @@ def poly(x):
 
 
 print_function([x for x in range(-2, 3)], poly)
+#função(map); A função map() aplica a função transmitida pelo primeiro argumento a todos os elementos do segundo 
+# argumento e retorna um iterador que entrega todos os resultados subsequentes da função.
+list_1 = [x for x in range(5)]
+list_2 = list(map(lambda x: 2 ** x, list_1))
+print(list_2)
+
+for x in map(lambda x: x * x, list_2):
+    print(x, end=' ')
+print()
+#Lambda e função(filter): ela filtra seu segundo argumento enquanto é orientada pelas instruções provenientes da função especificada como o primeiro argumento
+from random import seed, randint
+
+seed()
+data = [randint(-10,10) for x in range(5)]
+filtered = list(filter(lambda x: x > 0 and x % 2 == 0, data))
+
+print(data)
+print(filtered)
+#closure: closure é uma técnica que permite o armazenamento de valores apesar do contexto em que foram criados não existir mais.
+def outer(par):
+    loc = par
+
+    def inner():
+        return loc
+    return inner
+
+
+var = 1
+fun = outer(var)
+print(fun())
+#Abrindo os fluxos: modos
+#r modo aberto: leitura
+
+#o fluxo será aberto no modo de leitura;
+#o arquivo associado ao fluxo deve existir e deve ser legível, caso contrário, a função open() gerará uma exceção.
+#w modo aberto: gravação
+
+#o fluxo será aberto no modo de gravação;
+#o arquivo associado ao fluxo não precisa existir; se não existir, será criado; se existir, será truncado para o comprimento zero (apagado); se a criação não for possível (por exemplo, devido a permissões do sistema), a função open() gerará uma exceção.
+#a modo aberto: anexação
+
+#o fluxo será aberto no modo de anexação;
+#o arquivo associado ao fluxo não precisa existir; se não existir, será criado; se existir, o cabeçote de gravação virtual será definido no final do arquivo (o conteúdo anterior do arquivo permanece inalterado).
+#r+ modo aberto: leitura e atualização
+
+#o fluxo será aberto no modo de leitura e atualização;
+#o arquivo associado ao fluxo deve existir e deve ser gravável, caso contrário, a função open() gerará uma exceção;
+#operações de leitura e gravação são permitidas para o fluxo.
+#w+ modo aberto: gravação e atualização
+
+#o fluxo será aberto no modo de gravação e atualização;
+#o arquivo associado ao fluxo não precisa existir; se não existir, será criado; o conteúdo anterior do arquivo permanece inalterado;
+#operações de leitura e gravação são permitidas para o fluxo.
+#Abrindo fluxo
+try:
+    stream = open("C:\\Users\\User\\Desktop\\file.txt", "rt")
+    # Processamento fica aqui.
+    stream.close()
+except Exception as exc:
+    print("Cannot open the file:", exc)
+    #readline: O método tenta ler uma linha completa de texto do arquivo e a retorna como uma string no caso de sucesso. Caso contrário, retorna uma string vazia.
+    from os import strerror
+
+try:
+    character_counter = line_counter = 0
+    stream = open('text.txt', 'rt')
+    line = stream.readline()
+    while line != '':
+        line_counter += 1
+        for char in line:
+            print(char, end='')
+            character_counter += 1
+        line = stream.readline()
+    stream.close()
+    print("\n\nCharacters in file:", character_counter)
+    print("Lines in file:     ", line_counter)
+except IOError as e:
+    print("I/O error occurred:", strerror(e.errno))
+#Readlines:O método readlines() quando invocado sem argumentos, tenta ler todo o conteúdo do arquivo e retorna uma lista de strings, um elemento por linha do arquivo.
+from os import strerror
+
+try:
+    ccnt = lcnt = 0
+    s = open('text.txt', 'rt')
+    lines = s.readlines(20)
+    while len(lines) != 0:
+        for line in lines:
+            lcnt += 1
+            for ch in line:
+                print(ch, end='')
+                ccnt += 1
+        lines = s.readlines(10)
+    s.close()
+    print("\n\nCharacters in file:", ccnt)
+    print("Lines in file:     ", lcnt)
+except IOError as e:
+    print("I/O error occurred:", strerror(e.errno))
+#Replace()
+from datetime import date
+
+d = date(1991, 2, 5)
+print(d)
+
+d = d.replace(year=1992, month=1, day=16)
+print(d)
+#Dia de semana
+from datetime import date
+
+d = date(2019, 11, 4)
+print(d.weekday())
+#Criação de objetos de tempo
+from datetime import time
+
+t = time(14, 53, 20, 1)
+
+print("Time:", t)
+print("Hour:", t.hour)
+print("Minute:", t.minute)
+print("Second:", t.second)
+print("Microsecond:", t.microsecond)
+#time 
+import time
+
+class Student:
+    def take_nap(self, seconds):
+        print("I'm very tired. I have to take a nap. See you later.")
+        time.sleep(seconds)
+        print("I slept well! I feel great!")
+
+student = Student()
+student.take_nap(5)
+#Ctime: converte a data em segundos
+import time
+
+timestamp = 1572879180
+print(time.ctime(timestamp)) 
+#asctime e mktime
+import time
+
+timestamp = 1572879180
+st = time.gmtime(timestamp)
+
+print(time.asctime(st))
+print(time.mktime((2019, 11, 4, 14, 53, 0, 0, 308, 0)))
+    
